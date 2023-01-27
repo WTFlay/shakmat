@@ -1,12 +1,13 @@
 package dev.schriever.apps.shakmat.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity()
 @Table(name = "openings")
+@NoArgsConstructor
 @Data
 public class Opening {
     @Id
@@ -21,4 +22,9 @@ public class Opening {
 
     @OneToMany(mappedBy = "opening")
     private List<Variant> variants;
+
+    public Opening(String name, String moves) {
+        this.name = name;
+        this.moves = moves;
+    }
 }
