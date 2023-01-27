@@ -1,6 +1,6 @@
 package dev.schriever.apps.shakmat.web;
 
-import dev.schriever.apps.shakmat.dto.GetVariantMovesDto;
+import dev.schriever.apps.shakmat.api.GetVariantMovesApi;
 import dev.schriever.apps.shakmat.exception.VariantNotFoundException;
 import dev.schriever.apps.shakmat.mapper.VariantMapper;
 import dev.schriever.apps.shakmat.service.VariantMovesService;
@@ -30,7 +30,7 @@ public class VariantController {
     }
 
     @GetMapping("{id}/moves")
-    public GetVariantMovesDto getVariantMoves(@PathVariable("id") Long id) {
+    public GetVariantMovesApi getVariantMoves(@PathVariable("id") Long id) {
         try {
             var variant = variantService.findVariantById(id);
             var moves = variantMovesService.getCompleteMoves(variant);

@@ -1,9 +1,9 @@
-package dev.schriever.apps.shakmat.dto;
+package dev.schriever.apps.shakmat.api;
 
 import lombok.Data;
 
 @Data
-public class GetVariantMovesDto {
+public class GetVariantMovesApi {
     private Long id;
     private String opening;
     private String moves;

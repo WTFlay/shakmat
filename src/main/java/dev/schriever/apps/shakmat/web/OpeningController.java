@@ -1,7 +1,6 @@
 package dev.schriever.apps.shakmat.web;
 
-import dev.schriever.apps.shakmat.dto.GetOpeningDto;
-import dev.schriever.apps.shakmat.entity.Opening;
+import dev.schriever.apps.shakmat.api.GetOpeningApi;
 import dev.schriever.apps.shakmat.exception.OpeningNotFoundException;
 import dev.schriever.apps.shakmat.mapper.OpeningMapper;
 import dev.schriever.apps.shakmat.service.OpeningService;
@@ -29,7 +28,7 @@ public class OpeningController {
     }
 
     @GetMapping
-    public List<GetOpeningDto> getOpenings(@PathParam("moves") String moves) {
+    public List<GetOpeningApi> getOpenings(@PathParam("moves") String moves) {
         if (moves != null) {
             return openingService.listOpeningByMovesStartsWith(moves)
                     .stream()
@@ -43,7 +42,7 @@ public class OpeningController {
     }
 
     @GetMapping("{id}")
-    public GetOpeningDto getOpening(@PathVariable("id") Long id) {
+    public GetOpeningApi getOpening(@PathVariable("id") Long id) {
         try {
             return openingMapper.toDto(openingService.findOpeningById(id));
         } catch (OpeningNotFoundException exception) {
