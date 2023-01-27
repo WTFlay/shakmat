@@ -8,7 +8,9 @@ import java.util.List;
 @Entity()
 @Table(name = "openings")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Opening {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +23,7 @@ public class Opening {
     private String moves;
 
     @OneToMany(mappedBy = "opening")
+    @Singular
     private List<Variant> variants;
 
     public Opening(String name, String moves) {
