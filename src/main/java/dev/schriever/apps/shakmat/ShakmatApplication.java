@@ -21,20 +21,20 @@ public class ShakmatApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(OpeningRepository repository) {
+	public CommandLineRunner demo(OpeningRepository openingRepository) {
 		return args -> {
-			repository.save(new Opening("Ouverture écossaise", "e4 e5 Cf3 Cc6 d4 exd4"));
-			repository.save(new Opening("Ouverture italienne", "e4 e5 Cf3 Cc6 Fc4 Fc5"));
+			openingRepository.save(new Opening("Ouverture écossaise", "e4 e5 Cf3 Cc6 d4 exd4"));
+			openingRepository.save(new Opening("Ouverture italienne", "e4 e5 Cf3 Cc6 Fc4 Fc5"));
 
-			for (Opening opening : repository.findAll()) {
+			for (Opening opening : openingRepository.findAll()) {
 				log.info(opening.getName() + ": " + opening.getMoves());
 			}
 
-			for (Opening opening: repository.findByMovesStartsWith("e4 e5 Cf3 Cc6 d4")) {
+			for (Opening opening: openingRepository.findByMovesStartsWith("e4 e5 Cf3 Cc6 d4")) {
 				log.info("Opening start with \"e4 e5 Cf3 Cc6 d4\": " + opening.getName() + " - " + opening.getMoves());
 			}
 
-			for (Opening opening: repository.findByMovesContaining("d4")) {
+			for (Opening opening: openingRepository.findByMovesContaining("d4")) {
 				log.info("Opening containing with \"d4\": " + opening.getName() + " - " + opening.getMoves());
 			}
 		};
