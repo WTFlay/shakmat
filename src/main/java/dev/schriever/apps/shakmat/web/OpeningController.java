@@ -29,13 +29,7 @@ public class OpeningController {
 
     @GetMapping
     public List<GetOpeningApi> getOpenings(@PathParam("moves") String moves) {
-        if (moves != null) {
-            return openingService.listOpeningByMovesStartsWith(moves)
-                    .stream()
-                    .map(openingMapper::toDto)
-                    .collect(Collectors.toList());
-        }
-        return openingService.listOpening()
+        return openingService.listOpening(moves)
                 .stream()
                 .map(openingMapper::toDto)
                 .collect(Collectors.toList());
