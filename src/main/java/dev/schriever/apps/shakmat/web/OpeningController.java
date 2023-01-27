@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/opening")
+@RequestMapping("/openings")
 public class OpeningController {
 
     private final OpeningService openingService;
