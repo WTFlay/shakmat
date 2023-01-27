@@ -2,9 +2,7 @@ package dev.schriever.apps.shakmat.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.aspectj.apache.bcel.classfile.Module;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +10,8 @@ import java.util.List;
 @Table(name = "variants")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,21 +26,22 @@ public class Variant {
     @Column(nullable = false)
     private String moves;
 
-    @OneToMany(mappedBy = "variant")
+    @OneToMany(mappedBy = "parentVariant")
+    @Singular
     private List<Variant> variants;
 
     @ManyToOne
-    @JoinColumn(name = "variant_id")
-    private Variant variant;
+    @JoinColumn(name = "parent_variant_id")
+    private Variant parentVariant;
 
     public Variant(Opening opening, String moves) {
         this.opening = opening;
         this.moves = moves;
     }
 
-    public Variant(Opening opening, Variant variant, String moves) {
+    public Variant(Opening opening, Variant parentVariant, String moves) {
         this.opening = opening;
-        this.variant = variant;
+        this.parentVariant = parentVariant;
         this.moves = moves;
     }
 }
