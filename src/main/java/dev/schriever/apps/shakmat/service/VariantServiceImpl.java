@@ -9,13 +9,21 @@ import org.springframework.stereotype.Service;
 public class VariantServiceImpl implements VariantService {
 
     private final VariantRepository variantRepository;
+    private final VariantMovesService variantMovesService;
 
-    public VariantServiceImpl(VariantRepository variantRepository) {
+    public VariantServiceImpl(
+            VariantRepository variantRepository,
+            VariantMovesService variantMovesService
+    ) {
         this.variantRepository = variantRepository;
+        this.variantMovesService = variantMovesService;
     }
 
     @Override
     public Variant findVariantById(Long id) {
-        return variantRepository.findById(id).orElseThrow(() -> new VariantNotFoundException(id));
+        var variant = variantRepository.findById(id).orElseThrow(() -> new VariantNotFoundException(id));
+        String completeMoves = variantMovesService.getCompleteMoves(variant);
+        variant.setMoves(completeMoves);
+        return variant;
     }
 }

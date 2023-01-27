@@ -18,25 +18,18 @@ public class VariantController {
 
     private final VariantService variantService;
     private final VariantMapper variantMapper;
-    private final VariantMovesService variantMovesService;
 
     public VariantController(
             VariantService variantService,
-            VariantMapper variantMapper,
-            VariantMovesService variantMovesService) {
+            VariantMapper variantMapper) {
         this.variantService = variantService;
         this.variantMapper = variantMapper;
-        this.variantMovesService = variantMovesService;
     }
 
-    @GetMapping("{id}/moves")
+    @GetMapping("{id}")
     public GetVariantMovesApi getVariantMoves(@PathVariable("id") Long id) {
         try {
-            var variant = variantService.findVariantById(id);
-            var moves = variantMovesService.getCompleteMoves(variant);
-            var dto = variantMapper.toDto(variant);
-            dto.setMoves(moves);
-            return dto;
+            return variantMapper.toDto(variantService.findVariantById(id));
         } catch (VariantNotFoundException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
