@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface OpeningMapper {
-    GetOpeningApi toDto(Opening opening);
+  GetOpeningApi toDto(Opening opening);
 }

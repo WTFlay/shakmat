@@ -16,22 +16,20 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("variants")
 public class VariantController {
 
-    private final VariantService variantService;
-    private final VariantMapper variantMapper;
+  private final VariantService variantService;
+  private final VariantMapper variantMapper;
 
-    public VariantController(
-            VariantService variantService,
-            VariantMapper variantMapper) {
-        this.variantService = variantService;
-        this.variantMapper = variantMapper;
-    }
+  public VariantController(VariantService variantService, VariantMapper variantMapper) {
+    this.variantService = variantService;
+    this.variantMapper = variantMapper;
+  }
 
-    @GetMapping("{id}")
-    public GetVariantMovesApi getVariantMoves(@PathVariable("id") Long id) {
-        try {
-            return variantMapper.toDto(variantService.findVariantById(id));
-        } catch (VariantNotFoundException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
-        }
+  @GetMapping("{id}")
+  public GetVariantMovesApi getVariantMoves(@PathVariable("id") Long id) {
+    try {
+      return variantMapper.toDto(variantService.findVariantById(id));
+    } catch (VariantNotFoundException exception) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
     }
+  }
 }

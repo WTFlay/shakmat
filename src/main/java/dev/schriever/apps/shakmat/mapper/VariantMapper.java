@@ -7,9 +7,9 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface VariantMapper {
-    GetVariantMovesApi toDto(Variant variant);
+  GetVariantMovesApi toDto(Variant variant);
 
-    default String map(Opening opening) {
-        return opening.getName();
-    }
+  default String map(Opening opening) {
+    return opening.getName();
+  }
 }

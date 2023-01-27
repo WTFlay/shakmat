@@ -19,28 +19,27 @@ import java.util.stream.Collectors;
 @RequestMapping("/openings")
 public class OpeningController {
 
-    private final OpeningService openingService;
-    private final OpeningMapper openingMapper;
+  private final OpeningService openingService;
+  private final OpeningMapper openingMapper;
 
-    public OpeningController(OpeningService openingService, OpeningMapper openingMapper) {
-        this.openingService = openingService;
-        this.openingMapper = openingMapper;
-    }
+  public OpeningController(OpeningService openingService, OpeningMapper openingMapper) {
+    this.openingService = openingService;
+    this.openingMapper = openingMapper;
+  }
 
-    @GetMapping
-    public List<GetOpeningApi> getOpenings(@PathParam("moves") String moves) {
-        return openingService.listOpening(moves)
-                .stream()
-                .map(openingMapper::toDto)
-                .collect(Collectors.toList());
-    }
+  @GetMapping
+  public List<GetOpeningApi> getOpenings(@PathParam("moves") String moves) {
+    return openingService.listOpening(moves).stream()
+        .map(openingMapper::toDto)
+        .collect(Collectors.toList());
+  }
 
-    @GetMapping("{id}")
-    public GetOpeningApi getOpening(@PathVariable("id") Long id) {
-        try {
-            return openingMapper.toDto(openingService.findOpeningById(id));
-        } catch (OpeningNotFoundException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
-        }
+  @GetMapping("{id}")
+  public GetOpeningApi getOpening(@PathVariable("id") Long id) {
+    try {
+      return openingMapper.toDto(openingService.findOpeningById(id));
+    } catch (OpeningNotFoundException exception) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
     }
+  }
 }
